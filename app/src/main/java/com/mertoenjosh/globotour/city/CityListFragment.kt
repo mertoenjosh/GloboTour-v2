@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mertoenjosh.globotour.R
 
 
@@ -32,7 +34,16 @@ class CityListFragment : Fragment() {
         recyclerView?.adapter = cityAdapter
         recyclerView?.setHasFixedSize(true)
 
+
         val layoutManager = LinearLayoutManager(context)
+
+        // try the grid layout
+//        val layoutManager = GridLayoutManager(context, 2)
+
+        // try starggered layout
+//        val layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+
+
         layoutManager.orientation = RecyclerView.VERTICAL
         recyclerView?.layoutManager = layoutManager
 

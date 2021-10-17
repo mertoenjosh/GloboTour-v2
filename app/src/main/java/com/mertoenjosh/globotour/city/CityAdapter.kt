@@ -1,6 +1,7 @@
 package com.mertoenjosh.globotour.city
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,23 +14,31 @@ import com.mertoenjosh.globotour.city.VacationSpots.cityList
 
 class CityAdapter(val context: Context, val classList: ArrayList<City>): RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
 
+    private val tag = this::class.simpleName
+
     // creates a view holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
+        Log.i(tag, "onCreateViewHolder: View Holder Created")
         val itemView = LayoutInflater.from(context).inflate(R.layout.list_item_city, parent, false)
+
+        // inflate wih the grid layout
+//        val itemView = LayoutInflater.from(context).inflate(R.layout.grid_item_city, parent, false)
         return CityViewHolder(itemView)
     }
 
     // binds data to the view holder
     override fun onBindViewHolder(cityViewHolder: CityViewHolder, position: Int) {
+        Log.i(tag, "onBindViewHolder: position: $position")
         val city = cityList!![position]
         cityViewHolder.setData(city, position)
+        cityViewHolder.setListeners()
     }
 
     // returns the total number of elements in the data set
     override fun getItemCount(): Int = cityList!!.size
 
     // use 'inner' to use properties of CityAdapter
-    inner class CityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private var curretPosition: Int = -1
         private var currentCity: City? = null
 
@@ -56,6 +65,41 @@ class CityAdapter(val context: Context, val classList: ArrayList<City>): Recycle
 
             this.curretPosition = position
             this.currentCity = city
+        }
+
+        fun setListeners() {
+            imvDelete.setOnClickListener(this@CityViewHolder)
+            imvFavourite.setOnClickListener(this@CityViewHolder)
+        }
+
+        override fun onClick(v: View?) {
+            when(v!!.id) {
+                R.id.imv_favorite -> addToFavourite()
+                R.id.imv_delete -> deleteItem()
+            }
+        }
+
+        fun deleteItem() {
+            cityList?.removeAt(curretPosition)
+            notifyItemRemoved(curretPosition)
+            notifyItemRangeChanged(curretPosition, cityList!!.size)
+
+            // delete from favourites also
+            VacationSpots.favoriteCityList.remove(currentCity)
+
+        }
+
+        fun addToFavourite() {
+            currentCity?.isFavorite = !(currentCity?.isFavorite!!) // toggle "isFavourite" Boolean Value
+
+            if (currentCity?.isFavorite!!) { // if it is favourite - update icon and add the city object to favourite list
+                imvFavourite.setImageDrawable(icFavouriteFilledImage)
+                VacationSpots.favoriteCityList.add(currentCity!!)
+            } else { // update icon and remove the city object from favourite list
+                imvFavourite.setImageDrawable(icFavouriteBorderdImage)
+                VacationSpots.favoriteCityList.remove(currentCity)
+
+            }
         }
     }
 

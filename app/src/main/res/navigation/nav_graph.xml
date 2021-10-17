@@ -15,6 +15,6 @@
         android:id="@+id/fragmentFavoriteList"
         android:name="com.mertoenjosh.globotour.favorite.FavoriteFragment"
         android:label="@string/favorites"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite_list" />
 
 </navigation>
