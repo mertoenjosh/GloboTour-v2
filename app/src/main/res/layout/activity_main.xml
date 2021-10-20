@@ -8,7 +8,7 @@
     <!-- Main Content -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -41,6 +41,8 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:navGraph="@navigation/nav_graph" />
 
+
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -52,6 +54,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/activity_main_drawer_items"
         />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
