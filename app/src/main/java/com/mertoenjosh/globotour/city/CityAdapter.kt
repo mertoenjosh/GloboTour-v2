@@ -10,9 +10,8 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mertoenjosh.globotour.R
-import com.mertoenjosh.globotour.city.VacationSpots.cityList
 
-class CityAdapter(val context: Context, val classList: ArrayList<City>): RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
+class CityAdapter(val context: Context, val cityList: ArrayList<City>): RecyclerView.Adapter<CityAdapter.CityViewHolder>() {
 
     private val tag = this::class.simpleName
 
@@ -29,7 +28,7 @@ class CityAdapter(val context: Context, val classList: ArrayList<City>): Recycle
     // binds data to the view holder
     override fun onBindViewHolder(cityViewHolder: CityViewHolder, position: Int) {
         Log.i(tag, "onBindViewHolder: position: $position")
-        val city = cityList!![position]
+        val city = cityList[position]
         cityViewHolder.setData(city, position)
         cityViewHolder.setListeners()
     }
