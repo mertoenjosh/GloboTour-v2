@@ -50,7 +50,7 @@ class CityAdapter(val context: Context, val cityList: ArrayList<City>): Recycler
         private val icFavouriteFilledImage = ResourcesCompat.getDrawable(context.resources,
             R.drawable.ic_favorite_filled, null)
 
-        private val icFavouriteBorderdImage = ResourcesCompat.getDrawable(context.resources,
+        private val icFavouriteBorderedImage = ResourcesCompat.getDrawable(context.resources,
             R.drawable.ic_favorite_bordered, null)
 
         fun setData(city: City, position: Int) {
@@ -60,7 +60,7 @@ class CityAdapter(val context: Context, val cityList: ArrayList<City>): Recycler
             if (city.isFavorite)
                 imvFavourite.setImageDrawable(icFavouriteFilledImage)
             else
-                imvFavourite.setImageDrawable(icFavouriteBorderdImage)
+                imvFavourite.setImageDrawable(icFavouriteBorderedImage)
 
             this.curretPosition = position
             this.currentCity = city
@@ -77,11 +77,10 @@ class CityAdapter(val context: Context, val cityList: ArrayList<City>): Recycler
                 R.id.imv_delete -> deleteItem()
             }
         }
-
         fun deleteItem() {
-            cityList?.removeAt(curretPosition)
+            cityList.removeAt(curretPosition)
             notifyItemRemoved(curretPosition)
-            notifyItemRangeChanged(curretPosition, cityList!!.size)
+            notifyItemRangeChanged(curretPosition, cityList.size)
 
             // delete from favourites also
             VacationSpots.favoriteCityList.remove(currentCity)
@@ -95,7 +94,7 @@ class CityAdapter(val context: Context, val cityList: ArrayList<City>): Recycler
                 imvFavourite.setImageDrawable(icFavouriteFilledImage)
                 VacationSpots.favoriteCityList.add(currentCity!!)
             } else { // update icon and remove the city object from favourite list
-                imvFavourite.setImageDrawable(icFavouriteBorderdImage)
+                imvFavourite.setImageDrawable(icFavouriteBorderedImage)
                 VacationSpots.favoriteCityList.remove(currentCity)
 
             }
